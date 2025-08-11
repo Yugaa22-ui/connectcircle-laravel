@@ -17,3 +17,8 @@ Route::get('/register', function () {
 Route::get('/guest', function () {
     return view('guest');
 })->middleware('guest');
+
+use App\Http\Controllers\Auth\RegisterController;
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');

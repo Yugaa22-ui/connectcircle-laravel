@@ -10,10 +10,9 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // Matikan timestamps karena di tabel tidak ada updated_at & created_at otomatis
+    // Sesuaikan timestamps: kalau tabel users **tidak** punya updated_at, set false
     public $timestamps = false;
 
-    // Sesuaikan fillable dengan kolom di tabel users
     protected $fillable = [
         'username',
         'email',
@@ -21,8 +20,18 @@ class User extends Authenticatable
         'city',
         'profession',
         'bio',
-        'created_at',
         'role',
-        'profile_picture'
+        'profile_picture',
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    public function interests()
+    {
+        // tabel pivot: user_interests (user_id, interest_id)
+        return $this->belongsToMany(Interest::class, 'user_interests', 'user_id', 'interest_id');
+    }
 }
