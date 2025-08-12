@@ -12,8 +12,13 @@ use App\Models\Interest;
 
 class RegisterController extends Controller
 {
-    public function showRegistrationForm()
+    public function showRegistrationForm(Request $request)
     {
+        // Bersihkan old input kalau ini GET fresh tanpa error validasi
+        if (!$request->old()) {
+            $request->session()->forget('_old_input');
+        }
+
         $interests = Interest::all(); // ambil semua interest untuk form
         return view('auth.register', compact('interests'));
     }
