@@ -10,8 +10,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // Sesuaikan timestamps: kalau tabel users **tidak** punya updated_at, set false
-    public $timestamps = false;
+    public $timestamps = false; // hilangkan updated_at error
 
     protected $fillable = [
         'username',
@@ -31,7 +30,6 @@ class User extends Authenticatable
 
     public function interests()
     {
-        // tabel pivot: user_interests (user_id, interest_id)
         return $this->belongsToMany(Interest::class, 'user_interests', 'user_id', 'interest_id');
     }
 }

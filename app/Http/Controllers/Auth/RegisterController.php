@@ -14,12 +14,13 @@ class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
-        $interests = Interest::all(); // untuk checkbox di form
+        $interests = Interest::all(); // ambil semua interest untuk form
         return view('auth.register', compact('interests'));
     }
 
     public function register(Request $request)
     {
+        // Map confirm_password → password_confirmation agar rule confirmed Laravel jalan
         if ($request->has('confirm_password')) {
             $request->merge(['password_confirmation' => $request->input('confirm_password')]);
         }
@@ -27,8 +28,12 @@ class RegisterController extends Controller
         $rules = [
             'username' => ['required','string','max:100'],
             'email' => ['required','email','max:150','unique:users,email'],
-            // gunakan rule confirmed -> butuh password_confirmation
-            'password' => ['required','string','confirmed','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/'],
+            'password' => [
+                'required',
+                'string',
+                'confirmed', // cocok dengan password_confirmation
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/'
+            ],
             'city' => ['nullable','string','max:100'],
             'profession' => ['nullable','string','max:100'],
             'bio' => ['nullable','string'],
@@ -44,7 +49,7 @@ class RegisterController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
-        // Opsional: cek domain email MX (non-local)
+        // Cek domain email MX kalau bukan di localhost
         $validator->after(function ($validator) use ($request) {
             if (!app()->environment('local')) {
                 $email = $request->input('email');
@@ -61,7 +66,7 @@ class RegisterController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Simpan user + interests di transaction
+        // Simpan user + interests
         DB::beginTransaction();
         try {
             $user = User::create([
@@ -71,23 +76,16 @@ class RegisterController extends Controller
                 'city' => $request->input('city'),
                 'profession' => $request->input('profession'),
                 'bio' => $request->input('bio'),
-                // default role 'user' (atau tetapkan sesuai kebutuhan)
-                'role' => $request->input('role', 'user'),
+                'role' => 'user', // default
             ]);
 
-            // attach interests (user_interests)
-            $interests = $request->input('interests', []);
-            if (!empty($interests)) {
-                // pakai relation (pastikan relation dibuat di model)
-                $user->interests()->attach($interests);
-            }
+            // Simpan interests di pivot
+            $user->interests()->attach($request->input('interests'));
 
             DB::commit();
-
             return redirect()->route('login')->with('success', 'Pendaftaran berhasil. Silakan login.');
         } catch (\Throwable $e) {
             DB::rollBack();
-            // log jika perlu: \Log::error($e);
             return redirect()->back()->withInput()->withErrors(['global' => 'Gagal mendaftar. Silakan coba lagi.']);
         }
     }
