@@ -20,7 +20,7 @@
             <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg">
                 <i class="bi bi-person-plus"></i> Daftar
             </a>
-            <a href="{{ url('/guest/dashboard') }}" class="btn btn-secondary btn-lg">
+            <a href="{{ url('/guest') }}" class="btn btn-secondary btn-lg">
                 <i class="bi bi-eye"></i> Masuk sebagai Guest
             </a>
         </div>
