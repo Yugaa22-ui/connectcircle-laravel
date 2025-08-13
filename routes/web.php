@@ -4,6 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\User\DashboardUserController;
+// use App\Http\Controllers\User\ProfileController;
+// use App\Http\Controllers\Circle\CircleController;
+// use App\Http\Controllers\Friend\FriendController;
+
+// =============================
+// Public Routes
+// =============================
 
 // Landing Page
 Route::get('/', function () {
@@ -19,7 +27,7 @@ Route::post('/login', [LoginController::class, 'login'])
     ->name('login.post')
     ->middleware('guest');
 
-// Guest
+// Guest Page
 Route::get('/guest', [GuestController::class, 'index'])
     ->name('guest')
     ->middleware('guest');
@@ -30,3 +38,38 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])
 
 Route::post('/register', [RegisterController::class, 'register'])
     ->name('register.post');
+
+
+// =============================
+// Authenticated User Routes
+// =============================
+Route::middleware(['auth'])->group(function () {
+
+    // Dashboard User
+    Route::get('/dashboard/user', [DashboardUserController::class, 'index'])
+        ->name('user.dashboard');
+
+    // // Profile
+    // Route::get('/user/profile', [ProfileController::class, 'index'])
+    //     ->name('profile.index');
+
+    // // Circle
+    // Route::get('/circle/create', [CircleController::class, 'create'])
+    //     ->name('circle.create');
+    // Route::get('/circle/join', [CircleController::class, 'join'])
+    //     ->name('circle.join');
+    // Route::get('/circle/view', [CircleController::class, 'view'])
+    //     ->name('circle.view');
+
+    // // Friends
+    // Route::get('/friend/search', [FriendController::class, 'search'])
+    //     ->name('friend.search');
+    // Route::get('/friend/requests', [FriendController::class, 'requests'])
+    //     ->name('friend.requests');
+    // Route::get('/friend/list', [FriendController::class, 'list'])
+    //     ->name('friend.list');
+
+    // Logout
+    Route::post('/logout', [LoginController::class, 'logout'])
+        ->name('logout');
+});
