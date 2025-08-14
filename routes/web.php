@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\User\DashboardUserController;
-// use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ProfileController;
 // use App\Http\Controllers\Circle\CircleController;
 // use App\Http\Controllers\Friend\FriendController;
 
@@ -50,8 +50,9 @@ Route::middleware(['auth'])->group(function () {
         ->name('user.dashboard');
 
     // // Profile
-    // Route::get('/user/profile', [ProfileController::class, 'index'])
-    //     ->name('profile.index');
+        Route::middleware(['auth'])->group(function () {
+            Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        });
 
     // // Circle
     // Route::get('/circle/create', [CircleController::class, 'create'])

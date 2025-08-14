@@ -10,7 +10,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    public $timestamps = false; // hilangkan updated_at error
+        public $timestamps = false; // hilangkan updated_at error
 
     protected $fillable = [
         'username',
@@ -28,8 +28,23 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function badges()
+    {
+        return $this->belongsToMany(
+            \App\Models\Badge::class, // Model badge
+            'user_badges',           // Tabel pivot
+            'user_id',               // Foreign key di pivot
+            'badge_id'                // Foreign key di pivot
+        );
+    }
+
     public function interests()
     {
-        return $this->belongsToMany(Interest::class, 'user_interests', 'user_id', 'interest_id');
+        return $this->belongsToMany(
+            \App\Models\Interest::class, // Model interest
+            'user_interests',            // Tabel pivot
+            'user_id',                   // Foreign key di pivot
+            'interest_id'                 // Foreign key di pivot
+        );
     }
 }

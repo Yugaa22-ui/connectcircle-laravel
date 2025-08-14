@@ -15,27 +15,27 @@
               <i class="bi bi-person-circle me-2"></i> Lihat Profil
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('circle.create') }}">
+            {{-- data-page="{{ route('circle.create') }}"> --}}
               <i class="bi bi-plus-circle me-2"></i> Buat Circle
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('circle.join') }}">
+            {{-- data-page="{{ route('circle.join') }}"> --}}
               <i class="bi bi-search me-2"></i> Gabung Circle
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('circle.view') }}">
+            {{-- data-page="{{ route('circle.view') }}"> --}}
               <i class="bi bi-collection me-2"></i> Lihat Circle Saya
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('friend.search') }}">
+            {{-- data-page="{{ route('friend.search') }}"> --}}
               <i class="bi bi-person-plus me-2"></i> Teman Berdasar Minat
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('friend.requests') }}">
+            {{-- data-page="{{ route('friend.requests') }}"> --}}
               <i class="bi bi-person-check me-2"></i> Permintaan Pertemanan
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('friend.list') }}">
+            {{-- data-page="{{ route('friend.list') }}"> --}}
               <i class="bi bi-people-fill me-2"></i> Daftar Teman
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
@@ -66,27 +66,27 @@
             <i class="bi bi-person-circle me-2"></i> Lihat Profil
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('circle.create') }}">
+            {{-- data-page="{{ route('circle.create') }}"> --}}
             <i class="bi bi-plus-circle me-2"></i> Buat Circle
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('circle.join') }}">
+            {{-- data-page="{{ route('circle.join') }}"> --}}
             <i class="bi bi-search me-2"></i> Gabung Circle
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('circle.view') }}">
+            {{-- data-page="{{ route('circle.view') }}"> --}}
             <i class="bi bi-collection me-2"></i> Lihat Circle Saya
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('friend.search') }}">
+            {{-- data-page="{{ route('friend.search') }}"> --}}
             <i class="bi bi-person-plus me-2"></i> Cari Teman Berdasarkan Minat
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('friend.requests') }}">
+            {{-- data-page="{{ route('friend.requests') }}"> --}}
             <i class="bi bi-person-check me-2"></i> Permintaan Pertemanan
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
-            data-page="{{ route('friend.list') }}">
+            {{-- data-page="{{ route('friend.list') }}"> --}}
             <i class="bi bi-people-fill me-2"></i> Daftar Teman
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white sidebar-link"
