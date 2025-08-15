@@ -1,3 +1,6 @@
+@php
+    $isEmbed = request()->query('embed') === 'true';
+@endphp
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -10,27 +13,29 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
-  <!-- Custom CSS (pastikan file ada di public/css) -->
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ asset('css/dark-theme.css') }}" />
   @stack('styles')
 </head>
 <body class="bg-dark text-white d-flex flex-column min-vh-100">
 
+@if(!$isEmbed)
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
   <div class="container d-flex align-items-center">
-    <!-- pastikan file logo ada di public/img/logo_aplikasi.svg -->
     <a class="navbar-brand" href="{{ url('/') }}">
       <img src="{{ asset('img/logo_aplikasi.svg') }}" alt="Logo ConnectCircle" class="logo-image" style="height:36px;">
     </a>
   </div>
 </nav>
+@endif
 
 <!-- Main Content -->
 <main class="flex-grow-1">
   @yield('content')
 </main>
 
+@if(!$isEmbed)
 <!-- Footer -->
 <footer class="bg-dark border-top border-secondary text-white-50 py-3 mt-auto">
   <div class="container text-center">
@@ -40,7 +45,6 @@
       <a href="#" class="text-white-50 text-decoration-none me-3">Kebijakan Privasi</a>
       <a href="#" class="text-white-50 text-decoration-none">Ketentuan Layanan</a>
     </div>
-
     <div class="mb-1">
       <a href="https://github.com/Yugaa22-ui/connectcircle-laravel" target="_blank" class="text-white-50 text-decoration-none me-3" title="GitHub">
         <i class="bi bi-github fs-5"></i>
@@ -55,10 +59,10 @@
         <i class="bi bi-whatsapp fs-5"></i>
       </a>
     </div>
-
     <small>&copy; {{ date('Y') }} <strong>ConnectCircle</strong></small>
   </div>
 </footer>
+@endif
 
 <!-- Bootstrap Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
