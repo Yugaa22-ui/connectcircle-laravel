@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\User\DashboardUserController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\EditProfileController; // ← Tambahan
 // use App\Http\Controllers\Circle\CircleController;
 // use App\Http\Controllers\Friend\FriendController;
 
@@ -49,10 +50,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/user', [DashboardUserController::class, 'index'])
         ->name('user.dashboard');
 
-    // // Profile
-        Route::middleware(['auth'])->group(function () {
-            Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-        });
+    // Profile
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+
+    // Edit Profile (baru)
+    Route::get('/profile/edit', [EditProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [EditProfileController::class, 'update'])->name('profile.update');
 
     // // Circle
     // Route::get('/circle/create', [CircleController::class, 'create'])

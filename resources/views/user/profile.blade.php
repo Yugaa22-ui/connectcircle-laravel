@@ -55,7 +55,7 @@
         </div>
 
           <div class="card-footer border-top border-secondary d-flex justify-content-end gap-2">
-          {{-- <a href="{{ route('profile.edit') }}" class="btn btn-outline-info"><i class="bi bi-pencil-square"></i> Edit Profil</a> --}}
+          <a href="{{ route('profile.edit') }}" class="btn btn-outline-info"><i class="bi bi-pencil-square"></i> Edit Profil</a>
           {{-- <a href="{{ route('password.change') }}" class="btn btn-outline-warning"><i class="bi bi-key"></i> Ubah Password</a> --}}
         </div>
       </div>
