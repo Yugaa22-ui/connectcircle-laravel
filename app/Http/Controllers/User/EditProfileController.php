@@ -97,18 +97,22 @@ class EditProfileController extends Controller
             }
         }
 
-        // Cek perubahan isi
+        // Cek apakah tidak ada perubahan
+        $currentInterests = $user->interests->pluck('id')->sort()->values()->toArray();
+        $newInterests     = collect($validated['interests'])->sort()->values()->toArray();
+
         $noChanges =
             !$uploaded_new_photo &&
-            $validated['username'] === $user->username &&
-            $validated['email'] === $user->email &&
-            $validated['city'] === $user->city &&
-            $validated['profession'] === $user->profession &&
-            $validated['bio'] === $user->bio &&
-            $user->interests->pluck('id')->sort()->values()->toArray() === collect($validated['interests'])->sort()->values()->toArray();
+            $validated['username'] == $user->username &&
+            $validated['email'] == $user->email &&
+            ($validated['city'] ?? '') == ($user->city ?? '') &&
+            ($validated['profession'] ?? '') == ($user->profession ?? '') &&
+            ($validated['bio'] ?? '') == ($user->bio ?? '') &&
+            empty(array_diff($currentInterests, $newInterests)) &&
+            empty(array_diff($newInterests, $currentInterests));
 
         if ($noChanges) {
-            return back()->withErrors(['no_changes' => 'Tidak ada perubahan yang dilakukan.']);
+            return back()->with('warning', 'Tidak ada perubahan yang dilakukan.');
         }
 
         // Simpan perubahan
@@ -123,7 +127,7 @@ class EditProfileController extends Controller
         $user->interests()->sync($validated['interests']);
 
         return redirect()
-            ->route('profile.index')
+            ->route('profile.edit')
             ->with('success', 'Profil berhasil diperbarui.');
     }
 }

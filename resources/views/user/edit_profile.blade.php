@@ -18,6 +18,11 @@
           @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
           @endif
+
+          @if(session('warning'))
+            <div class="alert alert-warning">{{ session('warning') }}</div>
+          @endif
+
           @if($errors->any())
             <div class="alert alert-danger">
               <ul class="mb-0">
@@ -84,7 +89,7 @@
 
             <div class="d-flex justify-content-between flex-wrap gap-2">
               <button type="submit" class="btn btn-outline-light">Simpan Perubahan</button>
-              <a href="{{ route('profile.index') }}" class="btn btn-secondary">Kembali</a>
+              <a href="{{ url('/dashboard/user') }}?page={{ route('profile.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
           </form>
         </div>

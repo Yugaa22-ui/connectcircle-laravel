@@ -121,3 +121,17 @@ function setActiveLink(clickedLink) {
     }
   });
 }
+
+// 🔹 Auto-load halaman profil jika hash #profile
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageToLoad = urlParams.get('page');
+
+    if (pageToLoad) {
+        fetch(pageToLoad + '?embed=1')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('content-area').innerHTML = html;
+            });
+    }
+});
